@@ -1,0 +1,55 @@
+/* Create table about the people and what they do here */
+
+CREATE TABLE singers (id INTEGER PRIMARY KEY AUTOINCREMENT,
+name TEXT,
+country TEXT,
+born INTEGER);
+
+INSERT INTO singers VALUES (1, "Taylor Swift", "United States", 1989);
+INSERT INTO singers VALUES (2, "Ed Sheeran", "United Kingdom", 1991);
+INSERT INTO singers VALUES (3, "Pamungkas", "Indonesia", 1993);
+INSERT INTO singers VALUES (4, "IU", "South Korea", 1993);
+INSERT INTO singers VALUES (5, "Maluma", "Columbia", 1994);
+INSERT INTO singers VALUES (6, "Lisa", "Thailand", 1997);
+
+CREATE TABLE mostviewed(id INTEGER PRIMARY KEY,
+singer_id INTEGER,
+title TEXT,
+views INTEGER);
+
+INSERT INTO mostviewed (singer_id, title, views) VALUES (1, "Blank Space", 3036);
+INSERT INTO mostviewed (singer_id, title, views) VALUES (2, "Thinking Out Loud", 3540);
+INSERT INTO mostviewed (singer_id, title, views) VALUES (3, "To The Bone", 260);
+INSERT INTO mostviewed (singer_id, title, views) VALUES (4, "BBIBBI", 248);
+INSERT INTO mostviewed (singer_id, title, views) VALUES (5, "Corazon", 1613);
+INSERT INTO mostviewed (singer_id, title, views) VALUES (6, "Lalisa", 545);
+
+CREATE TABLE duet(id INTEGER PRIMARY KEY,
+duet1_id INTEGER,
+duet2_id INTEGER);
+INSERT INTO duet (duet1_id, duet2_id) VALUES (1,5);
+INSERT INTO duet (duet1_id, duet2_id) VALUES (4,2);
+INSERT INTO duet (duet1_id, duet2_id) VALUES (6,3);
+
+/** my favorite singers male and female from different county**/
+SELECT name AS Artist,
+country AS Coutry,
+born AS Born
+FROM singers;
+
+/** most viewed songs on YouTube from my favorite singers and their views in million**/
+SELECT singers.name AS Artist,
+mostviewed.title AS Song,
+mostviewed.views AS Views 
+FROM singers
+JOIN mostviewed
+ON singers.id = mostviewed.singer_id;
+
+/** who i like to duet them in a pair male and female of my favorite singers with**/
+SELECT a.name AS Female_Artist, 
+b.name AS Male_Artist
+FROM duet
+JOIN singers a
+ON duet.duet1_id = a.id
+JOIN singers b
+ON duet.duet2_id = B.id
